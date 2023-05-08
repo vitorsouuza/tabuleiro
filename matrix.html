@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #conteudo {
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        }
+
+        #conteudo .linha {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        }
+
+        #conteudo .linha:nth-child(odd) .coluna:nth-child(odd) {
+            background-color: black;
+        }
+
+        #conteudo .linha:nth-child(even) .coluna:nth-child(even) {
+            background-color: black;
+        }
+    </style>
+ 
+    <div id="conteudo"></div>
+    
+    <script>
+        var lista = []
+
+        while(lista.length < 64) {
+            var numAleatorio = Math.floor(Math.random() * 64)
+
+            if(lista.indexOf(numAleatorio) == -1){
+                lista.push(numAleatorio)
+            }
+        }
+
+        lista.sort(function(um,dois){
+            return um - dois
+        })
+
+        var matriz = []
+        var linha = []
+
+        for(var i = 0; i < lista.length; i++) {
+            linha.push(lista[i])
+            if(linha.length == 8) {
+                matriz.push(linha)
+                linha = []
+            }
+        }
+
+        console.log(matriz)
+
+        var conteudo = document.getElementById("conteudo")
+        var html = ""
+
+        for(var linha = 0; linha < matriz.length; linha++) {
+            html += "<div class='linha'>"
+            for(var coluna = 0; coluna < matriz[linha].length; coluna++) {
+                html += "<div class='coluna'></div>"
+            }
+            html += "</div>"
+        }
+
+        conteudo.innerHTML = html
+    </script>
+</body>
+</html>
